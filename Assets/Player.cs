@@ -27,6 +27,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
     private void MovePlayer(Vector3 direction)
     {
         if (cameraTransform == null)
@@ -42,8 +50,12 @@ public class Player : MonoBehaviour
         camForward = camForward.normalized;
         camRight = camRight.normalized;
         
-        Vector3 moveDirection = camForward * direction.z + camRight* direction.x;
-        rb.AddForce(speed * moveDirection);
+        if (isGrounded)
+        {
+            Vector3 moveDirection = camForward * direction.z + camRight * direction.x;
+            rb.AddForce(speed * moveDirection);
+        }
+        
 
         if (direction.y > 0 && isGrounded)
         {
