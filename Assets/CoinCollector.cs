@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,6 +16,8 @@ public class CoinCollector : MonoBehaviour
         if (other.CompareTag("Player")) 
         {
             OnCoinCollected?.Invoke();
+            Debug.Log($"{gameObject.name} was collected");
+            Destroy(gameObject);
         }
     }
 

@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 2017247674686228949}
   - component: {fileID: 3577721358034426631}
   - component: {fileID: 6578825785067039996}
+  - component: {fileID: 2154932767344189355}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -187,6 +188,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 100
+--- !u!65 &2154932767344189355
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451406813513909068}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &811971275822527726
 PrefabInstance:
   m_ObjectHideFlags: 0
