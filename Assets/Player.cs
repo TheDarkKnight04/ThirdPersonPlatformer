@@ -6,17 +6,20 @@ public class Player : MonoBehaviour
     [SerializeField] private InputManager inputManager;
     [SerializeField] private float speed;
     [SerializeField] private float jumpHeight;
+    [SerializeField] private float dashSpeed;
     [SerializeField] private Transform cameraTransform;
 
     private Rigidbody rb;
 
     private bool isGrounded = false;
     private bool canDoubleJump = false;
+    private bool canDash = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         inputManager.OnMove.AddListener(MovePlayer);
+        inputManager.OnDash.AddListener(Dash);
         rb = GetComponent<Rigidbody>();
     }
 
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour
         {
             isGrounded = true;
             canDoubleJump = true;
+            canDash = true;
         }
     }
 
@@ -51,7 +55,7 @@ public class Player : MonoBehaviour
         camRight.y = 0;
         camForward = camForward.normalized;
         camRight = camRight.normalized;
-        
+
         if (isGrounded)
         {
             Vector3 moveDirection = camForward * direction.z + camRight * direction.x;
@@ -76,6 +80,19 @@ public class Player : MonoBehaviour
     {
         Vector3 jumpForceVector = Vector3.up * jumpHeight;
         rb.AddForce(jumpForceVector, ForceMode.Impulse);
+    }
+
+    private void Dash()
+    {
+        if(!isGrounded && canDash)
+        {
+            canDash = false;
+            Vector3 dashDirection = cameraTransform.forward;
+            dashDirection.y = 0;
+            dashDirection.Normalize();
+
+            rb.AddForce(dashDirection * dashSpeed, ForceMode.Impulse);
+        }
     }
 
     // Update is called once per frame
