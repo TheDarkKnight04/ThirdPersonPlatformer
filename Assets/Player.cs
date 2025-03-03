@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
 
     private bool isGrounded = false;
+    private bool canDoubleJump = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            canDoubleJump = true;
         }
     }
 
@@ -57,13 +59,23 @@ public class Player : MonoBehaviour
         }
         
 
-        if (direction.y > 0 && isGrounded)
-        {
-            Vector3 jumpForceVector = Vector3.up * jumpHeight;
+        if (direction.y > 0)
+            if(isGrounded)
+            {
+                Jump();
+                isGrounded = false;
+            }
+            else if(canDoubleJump)
+            {
+                Jump();
+                canDoubleJump = false;
+            }
+    }
 
-            rb.AddForce(jumpForceVector, ForceMode.Impulse);
-            isGrounded = false;
-        }
+    private void Jump()
+    {
+        Vector3 jumpForceVector = Vector3.up * jumpHeight;
+        rb.AddForce(jumpForceVector, ForceMode.Impulse);
     }
 
     // Update is called once per frame
